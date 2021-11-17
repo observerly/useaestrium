@@ -10,11 +10,6 @@ lerna-debug.log*
 \dist
 \node_modules
 
-.npmrc
-.npmrc__
-*.npmrc
-*.npmrc__
-
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
