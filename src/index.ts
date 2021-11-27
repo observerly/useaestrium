@@ -1,3 +1,3 @@
 export {
   useMount
-} from '@/composables/useMount'
+} from './composables/useMount'
