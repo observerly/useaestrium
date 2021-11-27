@@ -93,5 +93,5 @@ export type UseMountReturn = ReturnType<typeof useMount>
 export interface UseMountProps {
   connect?: () => Promise<void>
   disconnect?: () => Promise<void>
-  goToEquatorialCoordinate?: () => Promise<any>
+  goToEquatorialCoordinate?: (params: EquatorialCoordinate) => Promise<any>
 }
