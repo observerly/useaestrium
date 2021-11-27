@@ -1,3 +1,6 @@
 export {
-  useMount
+  useMount,
+  UseMountOptions,
+  UseMountReturn,
+  UseMountProps
 } from './composables/useMount'

@@ -42,11 +42,11 @@ const defaultMountOptions = {
 export const useMount = (options: UseMountOptions = defaultMountOptions) => {
   const { url, immediate = true } = options
 
-  const connect = async () => {
+  const connect = async (): Promise<void> => {
     await fetch(`${url}/${namespace}/connect`)
   }
 
-  const disconnect = async () => {
+  const disconnect = async (): Promise<void> => {
     await fetch(`${url}/${namespace}/disconnect`)
   }
 
@@ -89,3 +89,9 @@ export const useMount = (options: UseMountOptions = defaultMountOptions) => {
 }
 
 export type UseMountReturn = ReturnType<typeof useMount>
+
+export interface UseMountProps {
+  connect?: () => Promise<void>
+  disconnect?: () => Promise<void>
+  goToEquatorialCoordinate?: () => Promise<any>
+}
