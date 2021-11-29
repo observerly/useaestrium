@@ -4,3 +4,10 @@ export {
   UseMountReturn,
   UseMountProps
 } from './composables/useMount'
+
+export {
+  useStatus,
+  UseStatusOptions,
+  UseStatusReturn,
+  UseStatusProps
+} from './composables/useStatus'
