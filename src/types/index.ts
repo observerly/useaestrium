@@ -41,7 +41,7 @@ export interface UseStatusResponse {
    * 
    * If PWI4 is not connected to the mount, this value will be 0.
    * 
-   * @default 0
+   * @default Infinity
    */
   alt: number
   /**
@@ -52,7 +52,7 @@ export interface UseStatusResponse {
    * 
    * If PWI4 is not connected to the mount, this value will be 0.
    * 
-   * @default 0
+   * @default Infinity
    */
   az: number
 }
