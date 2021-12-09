@@ -28,7 +28,7 @@ export interface UseFocuserOptions {
 export type UseFocuserReturn = {
   enable: () => Promise<void>
   disable: () => Promise<void>
-  goToFocuserTarget: (params: FocuserTargetParams) => Promise<UseStatusResponse>
+  goToFocusTarget: (params: FocuserTargetParams) => Promise<UseStatusResponse>
   stop: () => Promise<void>
 }
 
@@ -58,10 +58,10 @@ export const useFocuser = (options: UseFocuserOptions = defaultFocuserOptions): 
     await fetch(`${baseURL}/disable`)
   }
 
-  const goToFocuserTarget = async (
+  const goToFocusTarget = async (
     params: FocuserTargetParams
   ): Promise<UseStatusResponse> => {
-    const uri: URL = new URL(`${baseURL}/goto`)
+    const uri: URL = new URL(`${baseURL}/goto/focus/target`)
 
     uri.searchParams.append('target', params.target)
 
@@ -93,7 +93,7 @@ export const useFocuser = (options: UseFocuserOptions = defaultFocuserOptions): 
   return {
     enable,
     disable,
-    goToFocuserTarget,
+    goToFocusTarget,
     stop
   }
 }
