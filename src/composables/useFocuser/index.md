@@ -15,7 +15,7 @@ import { useFocuser } from '@observerly/useaestrium
 
 const target = ref('')
 
-const { goToFocuserTarget } = useFocuser({
+const { goToFocusTarget } = useFocuser({
   url: 'http://127.0.0.1:5000',
   immediate: true
 })
@@ -24,7 +24,7 @@ const { goToFocuserTarget } = useFocuser({
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 watch(target, async (prevTarget, newTarget) => {
   if (prevTarget !== newTarget) {
-    const status = await goToFocuserTarget({ target: target.value })
+    const status = await goToFocusTarget({ target: target.value })
   }
 })
 ```
