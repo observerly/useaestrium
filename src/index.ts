@@ -1,4 +1,11 @@
 export {
+  useEquatorialCoordinate,
+  UseEquatorialCoordinateOptions,
+  UseEquatorialCoordinateReturn,
+  UseEquatorialCoordinateProps
+} from './composables/useEquatorialCoordinate'
+
+export {
   useMount,
   UseMountOptions,
   UseMountReturn,
