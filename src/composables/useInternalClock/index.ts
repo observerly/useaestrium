@@ -6,7 +6,7 @@ import {
   onKeyStroke, useIntervalFn
 } from '@vueuse/core'
 
-interface UseInternalClockOptions {
+export interface UseInternalClockOptions {
   /**
    *
    * clock starting datetime:
