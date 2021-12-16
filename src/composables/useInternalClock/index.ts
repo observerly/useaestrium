@@ -162,3 +162,5 @@ export const useInternalClock = (options: UseInternalClockOptions) => {
 }
 
 export type UseInternalClockReturn = ReturnType<typeof useInternalClock>
+
+export interface UseInternalClockProps extends Partial<UseInternalClockReturn> {}
