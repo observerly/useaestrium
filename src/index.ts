@@ -20,6 +20,13 @@ export {
 } from './composables/useMount'
 
 export {
+  useObserver,
+  UseObserverOptions,
+  UseObserverReturn,
+  UseObserverProps
+} from './composables/useObserver'
+
+export {
   useStatus,
   UseStatusOptions,
   UseStatusReturn,
