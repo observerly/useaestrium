@@ -6,6 +6,13 @@ export {
 } from './composables/useEquatorialCoordinate'
 
 export {
+  useInternalClock,
+  UseInternalClockOptions,
+  UseInternalClockReturn,
+  UseInternalClockProps
+} from './composables/useInternalClock'
+
+export {
   useMount,
   UseMountOptions,
   UseMountReturn,
