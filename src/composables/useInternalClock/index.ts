@@ -2,6 +2,10 @@ import {
   ref, onMounted
 } from 'vue'
 
+import type {
+  Ref
+} from 'vue'
+
 import {
   onKeyStroke, useIntervalFn
 } from '@vueuse/core'
@@ -51,7 +55,7 @@ export const useInternalClock = (options: UseInternalClockOptions) => {
     }
   }
 
-  const currentDatetime = ref(datetime)
+  const currentDatetime: Ref<Date> = ref<Date>(datetime)
 
   const setDatetime = (date: Date): void => {
     currentDatetime.value = date
