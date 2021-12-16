@@ -1,10 +1,7 @@
 
 import {
   computed,
-  ref
-} from 'vue'
-
-import {
+  ref,
   ComputedRef
 } from 'vue'
 
@@ -29,38 +26,26 @@ export const validateLongitude = (longitude: number): boolean => {
   return (isFinite(longitude) && Math.abs(longitude) <= 180 && Math.abs(longitude) >= -180) || false
 }
 
-enum PermissionState {
-  "granted",
-  "denied",
-}
-
-declare interface DeviceOrientationEvent {
-  alpha: number | null
-  webkitCompassHeading: number | null
-  webkitCompassAccuracy: number | null
-  requestPermission: () => Promise<PermissionState>
-}
-
 // Obtain the querystring params of the url, if any:
 const params = useUrlSearchParams('history')
 
 export interface Observer {
   /**
-   * 
+   *
    * Longitude (in degrees)
-   * 
+   *
    */
   longitude: number
   /**
-   * 
+   *
    * Longitude (in degrees)
-   * 
+   *
    */
   latitude: number
   /**
-   * 
+   *
    * Elevation (in meteres above geoid)
-   * 
+   *
    */
   elevation: number
 }
@@ -74,9 +59,9 @@ const defaultObserver: Observer = {
 }
 
 /**
- * 
+ *
  * reactive useObserver()
- * 
+ *
  * @param options of type UseObserverOptions
  * @returns UseObserverReturn
  */
