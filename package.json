@@ -1,7 +1,7 @@
 {
   "name": "@observerly/useaestrium",
   "author": "Michael J. Roberts (observerly Ltd)",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "A composables Vue 3 library for using a remote observatory.",
   "repository": {
     "type": "git",
