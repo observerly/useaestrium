@@ -1,82 +1,87 @@
 import {
+  onMounted,
   readonly,
   ref,
   watchEffect
 } from 'vue'
 
 import type {
-  Ref
+  ComputedRef, Ref
 } from 'vue'
 
 import {
-  convertEquatorialToHorizontal
+  convertEquatorialToHorizontal,
+  stereoProjectHorizontalToCartesian2DCoordinate
 } from '@observerly/celestia'
 
 import type {
-  HorizontalCoordinate,
+  Cartesian2DCoordinate,
   EquatorialCoordinate
 } from '@observerly/celestia'
-
-export interface Observer {
-  /**
-   *
-   * Geographic longitude of the observer (in unit degree)
-   * @default -22.95764
-   *
-   */
-  longitude: number
-  /**
-   *
-   * Geographic latitude of the observer (in unit degree)
-   * @default 18.49041
-   *
-   */
-  latitude: number
-  /**
-   *
-   * Elevation (above sea level) of the observer (in unit meteres)
-   * @default 0
-   *
-   */
-  elevation: number
-}
 
 export interface UseEquatorialCoordinateOptions {
   /**
    *
-   * Coordinate { ra, dec } of the observed celestial target:
+   * Longitude coordinate {in degrees}
    *
    */
-  coordinate: EquatorialCoordinate
+  longitude: ComputedRef<number>
   /**
    *
-   * A datetime reference:
+   * Latitude coordinate {in degrees}
+   *
+   */
+  latitude: ComputedRef<number>
+  /**
+   *
+   * Azimuthal Offset
+   *
+   */
+  azOffset: Ref<number>
+  /**
+   *
+   * Altitudinal Offset
+   *
+   */
+  altOffset: Ref<number>
+  /**
+   *
+   * Dimenions (Width & Height) of the Projection Surface:
+   *
+   */
+  dimensions: ComputedRef<Cartesian2DCoordinate>
+  /**
+   *
+   *
+   * Screen Resolution
+   *
+   */
+  resolution: ComputedRef<number>
+  /**
+   *
+   * Datetime
    *
    */
   datetime: Ref<Date>
   /**
    *
-   * An observer object reference:
+   * Coordinate { ra, dec } of the observed celestial target:
    *
    */
-  observer: Ref<Observer>
+  coordinate?: EquatorialCoordinate
 }
 
-type RefKeys<T, K extends keyof T = keyof T> = {
-  // eslint-disable-next-line no-unused-vars
-  [key in K]: Ref<T[K]>
-}
+const ra = ref(Infinity)
 
-export interface UseEquatorialCoordinateReturn extends RefKeys<EquatorialCoordinate & HorizontalCoordinate> {}
+const dec = ref(Infinity)
 
-export interface UseEquatorialCoordinateProps extends Partial<UseEquatorialCoordinateReturn> {}
+const alt = ref(Infinity)
 
-// Set the default observer to Namibia:
-const defaultObserver = {
-  longitude: -22.95764,
-  latitude: 18.49041,
-  elevation: 0
-}
+const az = ref(Infinity)
+
+const x = ref(-1)
+
+const y = ref(-1)
 
 /**
  *
@@ -87,39 +92,87 @@ const defaultObserver = {
  */
 export const useEquatorialCoordinate = (
   options: UseEquatorialCoordinateOptions
-): UseEquatorialCoordinateReturn => {
+) => {
   const {
-    coordinate,
+    longitude,
+    latitude,
+    azOffset,
+    altOffset,
+    // eslint-disable-next-line no-unused-vars
+    resolution,
+    dimensions,
     datetime,
-    observer = ref(defaultObserver)
+    coordinate = {
+      ra: Infinity,
+      dec: Infinity
+    }
   } = options
 
-  const ra = ref(coordinate.ra)
+  onMounted(() => {
+    if (coordinate && ra.value !== Infinity) {
+      // eslint-disable-next-line no-unused-expressions
+      ra.value === coordinate.ra
+    }
 
-  const dec = ref(coordinate.dec)
+    if (coordinate && dec.value !== Infinity) {
+      // eslint-disable-next-line no-unused-expressions
+      dec.value === coordinate.dec
+    }
+  })
 
-  const alt = ref(Infinity)
+  const setEquatorialCoordinate = (position: EquatorialCoordinate) => {
+    ra.value = position.ra
+    dec.value = position.dec
+  }
 
-  const az = ref(Infinity)
-
+  // Watch Effect for ra and dec:
   watchEffect(() => {
     const { alt: altitude, az: azimuth } = convertEquatorialToHorizontal(
       {
         ra: ra.value,
         dec: dec.value
       },
-      observer.value,
+      {
+        longitude: longitude.value,
+        latitude: latitude.value
+      },
       datetime.value
     )
 
-    alt.value = altitude
-    az.value = azimuth
+    alt.value = altitude + altOffset.value
+    az.value = azimuth + azOffset.value
+  })
+
+  // Watch Effect for alt and az:
+  watchEffect(() => {
+    const width = dimensions.value.x
+
+    const height = dimensions.value.y
+
+    const { x: X, y: Y } = stereoProjectHorizontalToCartesian2DCoordinate(
+      {
+        alt: alt.value,
+        az: az.value
+      },
+      width,
+      height
+    )
+
+    x.value = X
+    y.value = Y
   })
 
   return {
     ra,
     dec,
     alt: readonly(alt),
-    az: readonly(az)
+    az: readonly(az),
+    x: readonly(x),
+    y: readonly(y),
+    setEquatorialCoordinate
   }
 }
+
+export type UseEquatorialCoordinateReturn = ReturnType<typeof useEquatorialCoordinate>
+
+export interface UseEquatorialCoordinateProps extends Partial<UseEquatorialCoordinateReturn> {}
