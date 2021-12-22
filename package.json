@@ -48,7 +48,7 @@
     "typescript": "^4.2.4"
   },
   "dependencies": {
-    "@observerly/celestia": "^0.17.0",
+    "@observerly/celestia": "^0.19.1",
     "@vueuse/core": "^7.1.2",
     "vue": "^3.2.23"
   }
