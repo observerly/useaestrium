@@ -31,7 +31,7 @@
     "lib": "vue-tsc --noEmit && vite build --config vite.lib.config.ts",
     "preview": "vite preview",
     "test": "jest --config=jest.config.json",
-    "prepublish": "npm run test:unit && tsc",
+    "prepublish": "npm run test && tsc",
     "lint": "eslint . --ext .ts"
   },
   "private": false,
