@@ -42,3 +42,7 @@ export const useDegreeFormat = (
     degreeFormat
   }
 }
+
+export type UseDegreeFormatReturn = ReturnType<typeof useDegreeFormat>
+
+export interface UseDegreeFormatProps extends Partial<UseDegreeFormatReturn> {}
