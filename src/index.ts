@@ -1,4 +1,11 @@
 export {
+  useDegreeFormat,
+  UseDegreeFormatOptions,
+  UseDegreeFormatReturn,
+  UseDegreeFormatProps
+} from './composables/useDegreeFormat'
+
+export {
   useEquatorialCoordinate,
   UseEquatorialCoordinateOptions,
   UseEquatorialCoordinateReturn,
