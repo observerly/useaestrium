@@ -26,8 +26,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'aestrium',
-      fileName: format => `aestrium.${format}.js`
+      name: 'useaestrium',
+      fileName: format => `useaestrium.${format}.js`
     }
   }
 })
