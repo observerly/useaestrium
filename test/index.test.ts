@@ -2,7 +2,7 @@ import {
   describe,
   expect,
   it
-} from '@jest/globals'
+} from 'vitest'
 
 describe('useaestrium', () => {
   it('Should Always Pass', () => {
