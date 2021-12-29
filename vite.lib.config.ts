@@ -28,6 +28,17 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'useaestrium',
       fileName: format => `useaestrium.${format}.js`
+    },
+    rollupOptions: {
+      external: ['vue', '@observerly/celestia'],
+      output: {
+        sourcemap: false,
+        // Provide global variables to use in the UMD build
+        // for externalized deps
+        globals: {
+          vue: 'Vue'
+        }
+      }
     }
   }
 })
