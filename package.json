@@ -68,8 +68,8 @@
     "vue-tsc": "^0.30.1"
   },
   "dependencies": {
-    "@observerly/celestia": "^0.19.1",
-    "@vueuse/core": "^7.1.2",
-    "vue": "^3.2.23"
+    "@observerly/celestia": "^0.19.3",
+    "@vueuse/core": "^7.4.1",
+    "vue": "^3.2.26"
   }
 }
