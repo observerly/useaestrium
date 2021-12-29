@@ -11,17 +11,17 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/observerly"
   },
-  "main": "./dist/aestrium.es.js",
+  "main": "./dist/useaestrium.es.js",
   "types": "./dist/src/index.d.ts",
-  "module": "./dist/aestrium.es.js",
+  "module": "./dist/useaestrium.es.js",
   "exports": {
     ".": {
-      "import": "./dist/aestrium.es.js",
-      "require": "./dist/aestrium.umd.js"
+      "import": "./dist/useaestrium.es.js",
+      "require": "./dist/useaestrium.umd.js"
     }
   },
-  "unpkg": "./dist/aestrium.umd.js",
-  "jsdelivr": "./dist/aestrium.umd.js",
+  "unpkg": "./dist/useaestrium.umd.js",
+  "jsdelivr": "./dist/useaestrium.umd.js",
   "files": [
     "dist"
   ],
