@@ -26,9 +26,6 @@ export const validateLongitude = (longitude: number): boolean => {
   return (isFinite(longitude) && Math.abs(longitude) <= 180 && Math.abs(longitude) >= -180) || false
 }
 
-// Obtain the querystring params of the url, if any:
-const params = useUrlSearchParams('history')
-
 export interface Observer {
   /**
    *
@@ -71,6 +68,9 @@ export const useObserver = (options: UseObserverOptions) => {
     latitude: lat = defaultObserver.latitude,
     elevation: ele = defaultObserver.elevation
   } = options
+
+  // Obtain the querystring params of the url, if any:
+  const params = useUrlSearchParams('history')
 
   // Reactive Geolocation API. It allows the user to provide their location
   // to web applications if they so desire. For privacy reasons, the user is
