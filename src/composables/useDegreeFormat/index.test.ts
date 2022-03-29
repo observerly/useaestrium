@@ -13,7 +13,7 @@ import {
 
 import type {
   EquatorialCoordinate
-} from '@observerly/celestia'
+} from '@observerly/polaris'
 
 import {
   useSetup
@@ -46,7 +46,7 @@ describe('useDegreeFormat', () => {
         format: 'dms'
       })
 
-      expect(degreeFormat.value).toBe('7º 24\' 25.43"')
+      expect(degreeFormat.value).toBe('+07° 24\' 25.43"')
     })
   })
 })

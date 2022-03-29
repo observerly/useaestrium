@@ -5,8 +5,8 @@ import {
 import {
   EquatorialCoordinate,
   HorizontalCoordinate,
-  convertDegreesToHours
-} from '@observerly/celestia'
+  convertDegreeToHour
+} from '@observerly/polaris'
 
 import {
   UseStatusResponse
@@ -93,7 +93,7 @@ export const useMount = (options: UseMountOptions = defaultMountOptions): UseMou
   ): Promise<UseStatusResponse | undefined> => {
     const { ra, dec } = params
 
-    const ha = convertDegreesToHours(ra)
+    const ha = convertDegreeToHour(ra)
 
     const uri: URL = new URL(`${baseURL}/goto/coordinates/equatorial`)
 

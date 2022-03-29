@@ -14,7 +14,7 @@ import {
 
 import type {
   HorizontalCoordinate
-} from '@observerly/celestia'
+} from '@observerly/polaris'
 
 // Ensuring any number meets validation for latitude:
 export const validateLatitude = (latitude: number): boolean => {
