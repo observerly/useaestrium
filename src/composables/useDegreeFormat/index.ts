@@ -4,9 +4,9 @@ import {
 } from 'vue'
 
 import {
-  parseDDToDMSHumanised,
-  parseDDToHMSHumanised
-} from '@observerly/celestia'
+  parseDegreeToDMSHumanised,
+  parseDegreeToHMSHumanised
+} from '@observerly/polaris'
 
 export interface UseDegreeFormatOptions {
   format: 'dms' | 'hms'
@@ -24,11 +24,11 @@ export const useDegreeFormat = (
 
   const applyFormat = (degree: number) => {
     if (format === 'dms') {
-      degreeFormat.value = parseDDToDMSHumanised(degree)
+      degreeFormat.value = parseDegreeToDMSHumanised(degree)
     }
 
     if (format === 'hms') {
-      degreeFormat.value = parseDDToHMSHumanised(degree)
+      degreeFormat.value = parseDegreeToHMSHumanised(degree)
     }
   }
 

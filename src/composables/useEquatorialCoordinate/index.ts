@@ -11,13 +11,13 @@ import type {
 
 import {
   convertEquatorialToHorizontal,
-  stereoProjectHorizontalToCartesian2DCoordinate
-} from '@observerly/celestia'
+  convertHorizontalToStereo
+} from '@observerly/polaris'
 
 import type {
-  Cartesian2DCoordinate,
+  CartesianCoordinate,
   EquatorialCoordinate
-} from '@observerly/celestia'
+} from '@observerly/polaris'
 
 export interface UseEquatorialCoordinateOptions {
   /**
@@ -49,7 +49,7 @@ export interface UseEquatorialCoordinateOptions {
    * Dimenions (Width & Height) of the Projection Surface:
    *
    */
-  dimensions: ComputedRef<Cartesian2DCoordinate>
+  dimensions: ComputedRef<CartesianCoordinate>
   /**
    *
    *
@@ -149,7 +149,7 @@ export const useEquatorialCoordinate = (
 
     const height = dimensions.value.y
 
-    const { x: X, y: Y } = stereoProjectHorizontalToCartesian2DCoordinate(
+    const { x: X, y: Y } = convertHorizontalToStereo(
       {
         alt: alt.value,
         az: az.value
