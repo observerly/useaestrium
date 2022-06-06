@@ -40,12 +40,12 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install project dependencies 👨🏻‍💻
-        run: npm ci
+        run: yarn
         env:
           NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build the package ready for publishing
-        run: npm run lib
+        run: yarn lib
 
       - uses: JS-DevTools/npm-publish@v1
         with:
