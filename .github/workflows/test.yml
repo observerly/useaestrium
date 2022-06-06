@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [15,16,17]
+        node: [17, 18]
 
     env:
       NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -24,7 +24,7 @@ jobs:
 
       # Setup .npmrc file to publish to GitHub Packages
       - name: Setup node env 🏗 and .npmrc file to publish to GitHub Packages
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v2.4.1
         with:
           node-version: ${{ matrix.node }}
           registry-url: 'https://npm.pkg.github.com'
