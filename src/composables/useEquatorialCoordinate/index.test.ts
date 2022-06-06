@@ -9,6 +9,7 @@ import {
 
 import {
   computed,
+  nextTick,
   ref
 } from 'vue'
 
@@ -26,7 +27,7 @@ describe('useEquatorialCoordinate', () => {
   })
 
   it('Betelgeuse Should Be ', () => {
-    useSetup(() => {
+    useSetup(async () => {
       // Define a star at a known Equatorial Coordinate:
       const betelgeuse = {
         ra: 88.7929583,
@@ -71,6 +72,8 @@ describe('useEquatorialCoordinate', () => {
 
       ra.value = betelgeuse.ra
       dec.value = betelgeuse.dec
+
+      await nextTick()
 
       expect(alt.value).toBeCloseTo(72.78539444063765, 1)
       expect(az.value).toBeCloseTo(134.44877920325155, 1)
