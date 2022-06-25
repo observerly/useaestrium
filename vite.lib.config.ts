@@ -30,7 +30,7 @@ export default defineConfig({
       fileName: format => `useaestrium.${format}.js`
     },
     rollupOptions: {
-      external: ['vue', '@observerly/celestia'],
+      external: ['vue', '@vueuse/core', '@observerly/polaris'],
       output: {
         sourcemap: false,
         // Provide global variables to use in the UMD build
