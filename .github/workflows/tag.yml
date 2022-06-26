@@ -24,6 +24,9 @@ jobs:
     steps:
       - name: Checkout 🛎
         uses: actions/checkout@master
+        with:
+          persist-credentials: false
+          fetch-depth: 0
 
       # Setup .npmrc file to publish to GitHub Packages
       - name: Setup node env 🏗 and .npmrc file to publish to GitHub Packages
@@ -61,6 +64,21 @@ jobs:
           RELEASE_VERSION: ${{ steps.tag.outputs.tag }}
         run: | 
           yarn version --new-version $RELEASE --no-git-tag-version
+      
+      # Commit the updated package.json file 
+      - name: Commit package.json version
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -m "chore: Bumped package.json version => ${{ steps.tag.outputs.tag }}" -a
+    
+      # Push the updated package.json file to the repository
+      - name: Push package.json version
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: "main"
+          force_with_lease: true
 
       
 
