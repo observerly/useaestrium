@@ -73,7 +73,7 @@ jobs:
         env:
           RELEASE_VERSION: ${{ steps.set-tag.outputs.tag }}
         run: | 
-          yarn version --new-version $RELEASE --no-git-tag-version
+          yarn version --new-version "$RELEASE_VERSION" --no-git-tag-version
       
       # Commit the updated package.json file 
       - name: Commit package.json version
