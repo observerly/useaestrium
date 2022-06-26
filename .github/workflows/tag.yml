@@ -51,20 +51,16 @@ jobs:
         run: yarn test
 
       # Check the previous tag to the current tag
-      - name: Set GITHUB_REF to the output
+      - name: Set GITHUB_REF tag to the output
         id: tag
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
 
-      - name: Check GITHUB_REF output in env
+      # Ensure that the pushed tag updates the package.json version number
+      - name: Update package.json version to GITHUB_REF tag
         env:
           RELEASE_VERSION: ${{ steps.tag.outputs.tag }}
-        run: |
-          echo $RELEASE_VERSION
-          echo ${{ steps.vars.outputs.tag }}
-
-      # Check the version in package.json to the current tag
-
-      # Ensure that the pushed tag updates the package.json version number
+        run: | 
+          yarn version --new-version $RELEASE --no-git-tag-version
 
       
 
