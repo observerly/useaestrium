@@ -3,7 +3,9 @@ name: useaestrium/tag
 on:
   push:
     tags:        
-        - "*.*.*"
+        - '*.*.*'
+        - '[0-9]+.[0-9]+.[0-9]+'
+        - '[0-9]+.[0-9]+.[0-9]+rc[0-9]+'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -58,8 +60,16 @@ jobs:
         id: tag
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
 
+      - name: Check GITHUB_REF tag is of correct '*.*.*' format
+        id: check-tag
+        run: |
+          if [[ ${{ steps.tag.outputs.tag }} =~ ^refs/tags/[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              echo ::set-output name=match::true
+          fi
+
       # Ensure that the pushed tag updates the package.json version number
       - name: Update package.json version to GITHUB_REF tag
+        if: steps.check-tag.outputs.match == 'true'
         env:
           RELEASE_VERSION: ${{ steps.tag.outputs.tag }}
         run: | 
@@ -67,6 +77,7 @@ jobs:
       
       # Commit the updated package.json file 
       - name: Commit package.json version
+        if: steps.check-tag.outputs.match == 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
@@ -74,6 +85,7 @@ jobs:
     
       # Push the updated package.json file to the repository
       - name: Push package.json version
+        if: steps.check-tag.outputs.match == 'true'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
