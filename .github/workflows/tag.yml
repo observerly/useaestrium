@@ -26,9 +26,6 @@ jobs:
     steps:
       - name: Checkout 🛎
         uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
-          fetch-depth: 0
 
       # Setup .npmrc file to publish to GitHub Packages
       - name: Setup node env 🏗 and .npmrc file to publish to GitHub Packages
@@ -86,10 +83,8 @@ jobs:
       # Push the updated package.json file to the repository
       - name: Push package.json version
         if: steps.check-tag.outputs.match == 'true'
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          force_with_lease: true
+        run: |
+          git push origin HEAD:main
 
       
 
