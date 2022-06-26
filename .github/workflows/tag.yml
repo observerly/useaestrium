@@ -1,0 +1,71 @@
+name: useaestrium/tag
+
+on:
+  push:
+    tags:        
+        - "*.*.*"
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  tag:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [17]
+
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@master
+
+      # Setup .npmrc file to publish to GitHub Packages
+      - name: Setup node env 🏗 and .npmrc file to publish to GitHub Packages
+        uses: actions/setup-node@v2.4.1
+        with:
+          node-version: ${{ matrix.node }}
+          registry-url: 'https://npm.pkg.github.com'
+          # Defaults to the user or organization that owns the workflow file:
+          scope: '@observerly'
+
+      - name: Cache node_modules 📦
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install project dependencies 👨🏻‍💻
+        run: yarn
+        env:
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run vitest tests 🧪
+        run: yarn test
+
+      # Check the previous tag to the current tag
+      - name: Set GITHUB_REF to the output
+        id: tag
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+
+      - name: Check GITHUB_REF output in env
+        env:
+          RELEASE_VERSION: ${{ steps.tag.outputs.tag }}
+        run: |
+          echo $RELEASE_VERSION
+          echo ${{ steps.vars.outputs.tag }}
+
+      # Check the version in package.json to the current tag
+
+      # Ensure that the pushed tag updates the package.json version number
+
+      
+
+      
